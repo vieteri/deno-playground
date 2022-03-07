@@ -1,0 +1,63 @@
+<%- include('./partials/header.ejs') %>
+
+
+
+<div class="container">	
+	<div class="row">
+	<h2><strong>Insert a morning mood </strong><br/></h2><br/>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Start form -->
+    <form method="POST">
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input id="date" type="date" class="form-control" name="date"  placeholder="date" value="<%= date %>"/>
+      </div>
+
+      <div class="form-group">
+        <label for="sleeptime">Sleeptime</label>
+        <input type="number" class="form-control" name="sports" step='any' placeholder="sleeptime 1-24" value="<%= sleeptime %>"/>
+      </div>
+ 
+      <div class="form-group">
+        <label for="sleepquality">sleepquality</label>
+        <input type="number" class="form-control" name="sleepquality" step='any' placeholder="sleepquality 1-5" value="<%= sleepquality %>"/>
+      </div>
+ 
+ 
+      <div class="form-group">
+        <label for="mood">mood</label>
+        <input type="number" class="form-control" name="mood" step='any' placeholder="mood 1-5" value="<%= mood %>"/>
+      </div>
+
+
+
+      <div class="form-check">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+        
+        
+     </div>
+    </form>
+
+
+			<!-- End form -->
+		</div>
+		
+	
+		
+	</div>
+<%= message %>
+<% if (errors && errors.length > 0) { %>
+  <ul>
+    <% errors.forEach((error) => { %>
+      <li><%= error %></li>
+    <% }); %>
+  </ul>
+<% } %>
+
+<script>
+  var today = moment().format('YYYY-MM-DD');
+  document.getElementById("date").valueAsDate = new Date();
+</script>
+
+<%- include('./partials/footer.ejs') %>

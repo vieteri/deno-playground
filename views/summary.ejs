@@ -1,0 +1,37 @@
+<%- include('./partials/header.ejs') %>
+<div class="container">
+    <div class="row col-12">
+    <div class="card text-center">
+        <div class="card-header">
+            Last 30 days summary of averages
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">sleep: <%= month.sleep %></li>
+            <li class="list-group-item">sports: <%= month.sports %></li>
+            <li class="list-group-item">study: <%= month.study %></li>
+            <li class="list-group-item">sleepquality: <%= month.sleepquality %></li>
+            <li class="list-group-item">morning mood: <%= month.moodmorning %></li>
+            <li class="list-group-item">evening mood: <%= month.moodevening %></li>
+        </ul>
+    </div>
+
+    <div class="col-1">
+    </div>
+
+    <div class="card text-center">
+        <div class="card-header">
+            Last 7 days summary of averages
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">sleep: <%= week.sleep %></li>
+            <li class="list-group-item">sports: <%= week.sports %></li>
+            <li class="list-group-item">study: <%= week.study %></li>
+            <li class="list-group-item">sleepquality: <%= week.sleepquality %></li>
+            <li class="list-group-item">morning mood: <%= week.moodmorning %></li>
+            <li class="list-group-item">evening mood: <%= week.moodevening %></li>
+        </ul>
+    </div>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>

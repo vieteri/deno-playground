@@ -1,0 +1,19 @@
+
+<li><a href="/behavior/summary">summary</a></li>
+<h1>Morning behaviours!</h1>
+<% if (morningmoods && morningmoods.length > 0) { %>
+    <ul>
+      <% morningmoods.forEach((mood) => { %>
+        <li>Date: <%= mood.dt %>: sleeptime:<%= mood.sleeptime %> sleepquality:<%= mood.sleepquality %> mood:<%= mood.mood %></li>
+      <% }); %>
+    </ul>
+<% } %>
+
+<h1>Evening behaviours</h1>
+<% if (eveningmoods && eveningmoods.length > 0) { %>
+    <ul>
+      <% eveningmoods.forEach((mood) => { %>
+        <li>Date: <%= mood.dt %>: sports:<%= mood.sports %> study:<%= mood.study %> eatquality:<%= mood.eatquality %> mood:<%= mood.mood %></li>
+      <% }); %>
+    </ul>
+<% } %>
