@@ -1,5 +1,5 @@
-import { Router } from "../deps.js";
-import { hello, cat } from "./controllers/helloController.js";
+import { Router } from "../deps.jsx";
+import { hello, cat } from "./controllers/helloController.jsx";
 
 const router = new Router();
 

@@ -1,6 +1,6 @@
-import { Application } from "./deps.js";
-import { viewEngine, engineFactory, adapterFactory, Session } from "./deps.js";
-import { router } from "./routes/routes.js";
+import { Application } from "./deps.jsx";
+import { viewEngine, engineFactory, adapterFactory, Session } from "./deps.jsx";
+import { router } from "./routes/routes.jsx";
 
 const app = new Application();
 const session = new Session({ framework: "oak" });
