@@ -7,10 +7,13 @@ function App() {
   return (
     <html>
       <head>
-        <title>Hello from JSX</title>
+        <title>Hello from Viet</title>
       </head>
       <body>
-        <h1>Hello world</h1>
+      <h3>
+          Viet Tran
+          <small class="text-muted">Teekkari</small>
+        </h3>
       </body>
     </html>
   );
