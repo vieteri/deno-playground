@@ -12,8 +12,11 @@ function App() {
       <body>
       <h3>
           Viet Tran
-          <small class="text-muted">Teekkari</small>
+          <small class="text-muted"> Teekkari</small>
         </h3>
+        <img src="https://picsum.photos/200/300?random=1"></img>
+
+
       </body>
     </html>
   );
