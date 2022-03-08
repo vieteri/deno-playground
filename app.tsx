@@ -20,6 +20,6 @@ if (Deno.args.length > 0) {
   port = Number(lastArgument);
 }
 
-app.listen({ port: port });
+//app.listen({ port: port });
 
 export { app };
