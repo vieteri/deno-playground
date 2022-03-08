@@ -15,6 +15,6 @@ app.use(viewEngine(oakAdapter, ejsEngine, {viewRoot: "./views"}));
 app.use(router.routes());
 
 
-app.listen({ port: 8000 });
+app.listen({ port: port });
 
 export default app;
