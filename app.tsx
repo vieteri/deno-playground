@@ -22,4 +22,4 @@ if (Deno.args.length > 0) {
 
 app.listen({ port: port });
 
-export default app;
+export { app };
