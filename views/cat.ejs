@@ -1,10 +1,31 @@
 <%- include('./partials/header.ejs') %>
 
 
-<div class="container">
-    <h1>Enjoy a random cat</h1>
-     <img id="photo" src="https://thecatapi.com/api/images/get?format=src&type=gif" alt="">
+
+  <div class="container">
+    <h1 class="text-center">Enjoy a random cat</h1>
+    <div class="text-center"><img id="photo" class="text-center" src="https://thecatapi.com/api/images/get?format=src&type=gif" alt=""></img></div>
+    <div class="form-check text-center">
+        <button id="btn" class="btn btn-pimrary">Get Random Cat!</button>
+    </div>
+       
   </div>
   
+  
+<script>
+    var btn = document.querySelector("#btn");
+var img = document.querySelector("#photo");
 
+btn.addEventListener("click", function() {
+  var XHR = new XMLHttpRequest();
+  
+  XHR.onreadystatechange = function() {
+    if (XHR.readyState == 4 && XHR.status == 200) {
+      img.src = JSON.parse(XHR.responseText).file;  
+    }
+  }
+  XHR.open("GET", "https://aws.random.cat/meow");
+  XHR.send();
+});
+</script>
   <%- include('./partials/footer.ejs') %>
