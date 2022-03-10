@@ -3,6 +3,6 @@ export {  viewEngine, engineFactory, adapterFactory } from "https://deno.land/x/
 //export { Client } from "https://deno.land/x/postgres@v0.10.0/mod.ts";
 //export { Client } from "https://deno.land/x/mysql/mod.ts";
 export * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
-export { Pool } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
+export { Pool, Client } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
 export { Session } from "https://deno.land/x/session@v1.0.0/mod.ts";
 export { validate, required, isNumber, numberBetween, isFloat, isDate, isEmail } from "https://deno.land/x/validasaur@v0.15.0/mod.ts";

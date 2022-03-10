@@ -27,7 +27,7 @@ const register = async({request, response, render, session}) => {
   // check if there already exists such an email in the database
   // -- if yes, respond with a message telling that the user
   // already exists
-  const existingUsers = await executeQuery("SELECT * FROM users WHERE email = $1", email);
+  const existingUsers = await executeQuery("SELECT * FROM users WHERE email = $1", [email]);
   if (existingUsers.rowCount > 0) {
     errors.push('The email is already reserved.');
   }
@@ -39,7 +39,8 @@ const register = async({request, response, render, session}) => {
     // otherwise, store the details in the database
     const hash = await bcrypt.hash(password);
     // when storing a password, store the hash    
-    await executeQuery("INSERT INTO users (email, password) VALUES ($1, $2);", email, hash);
+    console.log(email, hash);
+    await executeQuery(`INSERT INTO users (email, password) VALUES ($1::varchar, $2::varchar)`, [email, hash]);
     response.redirect('/auth/login');
   }
 };
@@ -61,15 +62,15 @@ const authenticate = async({request, render, response, session}) => {
   const errors = []
   const email = params.get('email').toLowerCase();
   const password = params.get('password');
-  
-  
+
   // check if the email exists in the database
-  const res = await executeObject("SELECT * FROM users WHERE email = $1;", email);
+  const res =  await executeQuery(`SELECT * FROM users where email::varchar = $1::varchar`, [email]);
   const userObj = res.rows[0];
   if (res.rowCount === 0) {
       errors.push('email not found from database');
   } else  {
     const hash = userObj.password;
+    console.log(hash)
     const passwordCorrect = await bcrypt.compare(password, hash);
     if (!passwordCorrect) {
       errors.push('password is wrong');
@@ -78,6 +79,7 @@ const authenticate = async({request, render, response, session}) => {
   if (errors.length>0) {
     render('login.ejs', {user: "not authenticated", errors: errors});
   } else {
+    console.log("email:", userObj.email);
   await session.set('authenticated', true);
   await session.set('user', {
       id: userObj.id,

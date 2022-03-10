@@ -39,4 +39,38 @@
 </div>
 
 
+<span class="navbar-text">
+  <div class="nav-item dropdown">
+    <ul class="navbar-nav ">
+    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= user %>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="auth">
+     
+    </div>
+    </ul>
+  </div>
+</span>
+
+</nav>
+
+<div class="mt-5 col-md-24">
+
+</div>
+
+<p id="login"></p>
+<p id="register"></p>
+<script>
+var name = "<%= user %>";
+const div = document.querySelector('.dropdown-menu');
+if (name === "not authenticated") {
+
+div.innerHTML += `<a class="dropdown-item" href="/auth/login">Login</a>`;
+div.innerHTML += `<a class="dropdown-item" href="/auth/register">Register</a>`;
+}
+if (name.includes("@")){
+div.innerHTML += `<a class="dropdown-item" href="/auth/logout">Log out</a>`;
+}
+</script>
+
 <div class="header">
