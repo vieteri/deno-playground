@@ -1,5 +1,6 @@
 import { Application } from "./deps.jsx";
 import { viewEngine, engineFactory, adapterFactory, Session } from "./deps.jsx";
+import {log, authmiddleware, errorMiddleware, serveStaticFilesMiddleware, registeredmiddleware} from './middlewares/middlewares.jsx';
 import { router } from "./routes/routes.jsx";
 
 const app = new Application();
@@ -11,6 +12,11 @@ const ejsEngine = engineFactory.getEjsEngine();
 const oakAdapter = adapterFactory.getOakAdapter();
 app.use(viewEngine(oakAdapter, ejsEngine, {viewRoot: "./views"}));
 
+app.use(registeredmiddleware);
+app.use(errorMiddleware);
+app.use(serveStaticFilesMiddleware);
+app.use(authmiddleware);
+app.use(log);
 
 app.use(router.routes());
 

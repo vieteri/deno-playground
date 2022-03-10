@@ -1,10 +1,16 @@
 import { Router } from "../deps.jsx";
 import { hello, cat } from "./controllers/helloController.jsx";
-
+import { authenticate, register, showLoginForm, showRegisterForm, logout } from "../auth/userService.jsx";
 const router = new Router();
 
 router.get('/', hello);
 router.get('/cat', cat);
+
+router.get('/auth/login', showLoginForm)
+router.post('/auth/login', authenticate);
+router.get('/auth/register', showRegisterForm);
+router.post('/auth/register', register);
+router.get('/auth/logout', logout);
 
 //router.post('/behavior/summary', postusersummary);
 /*outer.get('/api/hello', api.getHello);
