@@ -1,7 +1,13 @@
 let config = {};
 
 if (Deno.env.get('TEST_ENVIRONMENT')) {
-  config.database = {};
+  config.database = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    } 
+  }
+
 } else {
   config.database = {
     user: 'cqxxxrzh',
