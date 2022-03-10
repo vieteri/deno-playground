@@ -2,7 +2,7 @@ import { Application } from "./deps.jsx";
 import { viewEngine, engineFactory, adapterFactory, Session } from "./deps.jsx";
 import {log, authmiddleware, errorMiddleware, serveStaticFilesMiddleware, registeredmiddleware} from './middlewares/middlewares.jsx';
 import { router } from "./routes/routes.jsx";
-
+ 
 const app = new Application();
 const session = new Session({ framework: "oak" });
 await session.init();
