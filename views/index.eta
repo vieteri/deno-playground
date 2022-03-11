@@ -1,10 +1,8 @@
-<%- include('./partials/header.ejs') %>
-
+<%~ includeFile('./partials/header', {user: it.user }) %>
 
 <blockquote class="blockquote text-center">
     <p class="mb-0">This website is for personal amusement.</p>
     <p class="mb-0">I salute you for finding my website!</p>
 </blockquote>
 
-
-<%- include('./partials/footer.ejs') %>
+<%~ includeFile('./partials/footer.ejs') %>

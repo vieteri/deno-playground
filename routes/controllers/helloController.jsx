@@ -1,8 +1,7 @@
 
 const hello = async(context) => {
   const data = {};
-  let authenticated = await context.session.get('user')
-  console.log(authenticated)
+  let authenticated = await context.state.session.get('user')
   let email = '';
   if (!authenticated) {
     email = "not authenticated";
@@ -11,12 +10,13 @@ const hello = async(context) => {
   }
 
   data.user = email;
-  context.render('index.ejs', data);
+  console.log(data);
+  context.render('index.eta', data);
 };
  
 const cat = async(context) => {
   const data = {};
-  let authenticated = await context.session.get('user')
+  let authenticated = await context.state.session.get('user')
   let email = '';
   if (!authenticated) {
     email = "not authenticated";

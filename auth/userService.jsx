@@ -1,9 +1,9 @@
 import { executeQuery, executeObject } from "../database/database.jsx";
 import {bcrypt, isEmail} from "../deps.jsx";
 
-const showRegisterForm = async({render}) => {
+const showRegisterForm = async(context) => {
     const errors = [];
-    render('register.ejs', {user: 'not authenticated', errors: errors});
+    context.render('register.ejs', {user: 'not authenticated', errors: errors});
   };
   
 const register = async({request, response, render, session}) => {
@@ -45,19 +45,19 @@ const register = async({request, response, render, session}) => {
   }
 };
   
-const showLoginForm = async({render, session, response}) => {
+const showLoginForm = async(context) => {
   let errors = [];
-  let authenticated = await session.get('authenticated');
+  let authenticated = await context.state.session.get('authenticated');
   if (authenticated) {
-    response.redirect('/behavior');
+    context.response.redirect('/behavior');
   } else {
-    render('login.ejs', {user: 'not authenticated', errors: errors});
+    context.render('login.eta', {user: 'not authenticated', errors: errors});
   }
   
 }
   
-const authenticate = async({request, render, response, session}) => {
-  const body = request.body();
+const authenticate = async(context) => {
+  const body = context.request.body();
   const params = await body.value;
   const errors = []
   const email = params.get('email').toLowerCase();
@@ -66,7 +66,7 @@ const authenticate = async({request, render, response, session}) => {
   // check if the email exists in the database
   const res =  await executeQuery(`SELECT * FROM users where email::varchar = $1::varchar`, [email]);
   const userObj = res.rows[0];
-  if (res.rowCount === 0) {
+  if (res.rows.length === 0) {
       errors.push('email not found from database');
   } else  {
     const hash = userObj.password;
@@ -77,20 +77,20 @@ const authenticate = async({request, render, response, session}) => {
     }      
   }
   if (errors.length>0) {
-    render('login.ejs', {user: "not authenticated", errors: errors});
+    context.render('login.eta', {user: "not authenticated", errors: errors});
   } else {
     console.log("email:", userObj.email);
-  await session.set('authenticated', true);
-  await session.set('user', {
+  await context.state.session.set('authenticated', true);
+  await context.state.session.set('user', {
       id: userObj.id,
       email: userObj.email
   });
-  response.redirect('/');
+  context.response.redirect('/');
 }
 }
 const logout = async(context) => {
-  await context.session.set('authenticated', false);
-  await context.session.set('user', {
+  await context.state.session.set('authenticated', false);
+  await context.state.session.set('user', {
       id: null,
       email: "not authenticated"
   });

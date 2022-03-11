@@ -12,7 +12,7 @@ router.get('/auth/register', showRegisterForm);
 router.post('/auth/register', register);
 router.get('/auth/logout', logout);
 
-//router.post('/behavior/summary', postusersummary);
+router.post('/behavior/summary', register);
 /*outer.get('/api/hello', api.getHello);
 router.post('/api/hello', api.setHello);
 

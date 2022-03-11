@@ -1,3 +1,5 @@
+import { configure, renderFile } from "../deps.jsx"
+
 const log = async({request}, next) => {
   console.log(`${request.url.pathname} - ${request.method}`);
   await next();
@@ -11,6 +13,20 @@ const errorMiddleware = async(context, next) => {
     console.log(e);
   }
 }
+
+const renderMiddleware = async (context, next) => {
+  configure({
+    views: "./views/",
+  });
+
+  context.render = async (file, data) => {
+    context.response.headers.set("Content-Type", "text/html; charset=utf-8");
+    context.response.body = await renderFile(file, data);
+  };
+
+  await next();
+};
+
 
 const serveStaticFilesMiddleware = async(context, next) => {
   if (context.request.url.pathname.startsWith('/static')) {
@@ -48,4 +64,4 @@ const registeredmiddleware = async(context, next) => {
   } 
   await next();
 }
-export {errorMiddleware, serveStaticFilesMiddleware, authmiddleware, registeredmiddleware, log}
+export {errorMiddleware, serveStaticFilesMiddleware, authmiddleware, registeredmiddleware, log, renderMiddleware}

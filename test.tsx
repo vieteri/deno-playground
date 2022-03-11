@@ -3,13 +3,13 @@ import {bcrypt} from "./deps.jsx"
 import { assertEquals } from "https://deno.land/std@0.120.0/testing/asserts.ts";
 
 
-await executeQuery(`delete from users where email = $1`, ["rupitin.tran@gmail.com"]);
-let pass = "pösä";
-let hash = await bcrypt.hash("pösä");
-await executeQuery(`insert into users (email, password) VALUES ($1,$2)`, ["rupitin.tran@gmail.com", hash]);
-const res = await executeQuery(`SELECT * FROM users where email = $1`, ["rupitin.tran@gmail.com"]);
-
-const passwordCorrect = await bcrypt.compare(pass, hash);
-console.log(hash)
-console.log(res.rows[0].password)
-console.log(passwordCorrect);
+const res =  await executeQuery(`SELECT * FROM users where email::varchar = $1::varchar`, ["viet_trar@windowslive.com"]);
+  const userObj = res.rows[0];
+  console.log(res.rows.length)
+  /*
+  if (res.rowCount === 0) {
+      console.log('email not found from database');
+  }
+  else{
+    console.log('email found from database');
+  }*/

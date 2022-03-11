@@ -1,4 +1,6 @@
-<%- include('./partials/header.ejs') %>
+<%~ includeFile('./partials/header', {user: it.user }) %>
+
+
 
 
 
@@ -28,4 +30,4 @@ btn.addEventListener("click", function() {
   XHR.send();
 });
 </script>
-  <%- include('./partials/footer.ejs') %>
+<%~ includeFile('./partials/footer.ejs') %>
