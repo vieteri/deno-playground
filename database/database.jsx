@@ -1,21 +1,13 @@
 import { Pool } from "../deps.jsx";
 import { config } from "../config/config.jsx";
 
-const getClient = () => {
-  return new Pool(config.database);
-}
-
-
-
 const CONCURRENT_CONNECTIONS = 2;
 let connectionPool;
-
 if (Deno.env.get("DATABASE_URL")) {
   connectionPool = new Pool(Deno.env.get("DATABASE_URL"), CONCURRENT_CONNECTIONS);
 } else {
   connectionPool = new Pool(config.database, CONCURRENT_CONNECTIONS);
 }
-
 
 const executeQuery = async (query, ...args) => {
   const response = {};
@@ -47,7 +39,7 @@ const executeQuery = async (query, ...args) => {
 
 
 const executeObject = async(query, ...args) => {
-  const client = getClient();
+  let client = await connectionPool.connect();
   console.log(...args)
   try {
     await client.connect();
