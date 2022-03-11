@@ -1,1 +1,1 @@
-web: deno run --allow-all --unstable heroku-deploy.tsx ${PORT}
+web: deno run --allow-all --unstable --unsafely-ignore-certificate-errors heroku-deploy.tsx ${PORT}
