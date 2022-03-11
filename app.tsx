@@ -48,7 +48,7 @@ app.use(log);
 app.use(renderMiddleware);
 app.use(router.routes());
 
-let port = 7777;
+let port = 8000;
 if (Deno.args.length > 0) {
   const lastArgument = Deno.args[Deno.args.length - 1];
   port = Number(lastArgument);

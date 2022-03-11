@@ -43,7 +43,7 @@ const serveStaticFilesMiddleware = async(context, next) => {
 
 const authmiddleware = async(context, next) => {
   if (context.request.url.pathname.startsWith('/behavior')){
-    let authenticated = await context.session.get('authenticated');
+    let authenticated = await context.state.session.get('authenticated');
     if (!authenticated){
       context.response.redirect('/auth/login');
       return;
@@ -55,7 +55,7 @@ const authmiddleware = async(context, next) => {
 
 const registeredmiddleware = async(context, next) => {
   if (context.request.url.pathname.startsWith('/auth/register')){
-    let authenticated = await context.session.get('authenticated');
+    let authenticated = await context.state.session.get('authenticated');
     if (authenticated){
       context.response.redirect('/behavior');
       return;

@@ -3,7 +3,7 @@ import {bcrypt, isEmail} from "../deps.jsx";
 
 const showRegisterForm = async(context) => {
     const errors = [];
-    context.render('register.ejs', {user: 'not authenticated', errors: errors});
+    context.render('register.eta', {user: 'not authenticated', errors: errors});
   };
   
 const register = async({request, response, render, session}) => {
