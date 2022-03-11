@@ -39,12 +39,12 @@ router.get("/session", async (ctx) => {
 const ejsEngine = engineFactory.getEjsEngine();
 const oakAdapter = adapterFactory.getOakAdapter();
 app.use(viewEngine(oakAdapter, ejsEngine, {viewRoot: "./views"}));
-*
+* */
 app.use(registeredmiddleware);
 app.use(errorMiddleware);
 app.use(serveStaticFilesMiddleware);
 app.use(authmiddleware);
-app.use(log); */
+app.use(log); 
 app.use(renderMiddleware);
 app.use(router.routes());
 

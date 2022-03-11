@@ -27,8 +27,8 @@ const register = async({request, response, render, session}) => {
   // check if there already exists such an email in the database
   // -- if yes, respond with a message telling that the user
   // already exists
-  const existingUsers = await executeQuery("SELECT * FROM users WHERE email = $1", [email]);
-  if (existingUsers.rowCount > 0) {
+  const existingUsers = await executeQuery("SELECT * FROM users WHERE email = $1::varchar", [email]);
+  if (existingUsers.rows.length > 0) {
     errors.push('The email is already reserved.');
   }
 
@@ -39,7 +39,6 @@ const register = async({request, response, render, session}) => {
     // otherwise, store the details in the database
     const hash = await bcrypt.hash(password);
     // when storing a password, store the hash    
-    console.log(email, hash);
     await executeQuery(`INSERT INTO users (email, password) VALUES ($1::varchar, $2::varchar)`, [email, hash]);
     response.redirect('/auth/login');
   }
@@ -70,7 +69,6 @@ const authenticate = async(context) => {
       errors.push('email not found from database');
   } else  {
     const hash = userObj.password;
-    console.log(hash)
     const passwordCorrect = await bcrypt.compare(password, hash);
     if (!passwordCorrect) {
       errors.push('password is wrong');
@@ -79,7 +77,6 @@ const authenticate = async(context) => {
   if (errors.length>0) {
     context.render('login.eta', {user: "not authenticated", errors: errors});
   } else {
-    console.log("email:", userObj.email);
   await context.state.session.set('authenticated', true);
   await context.state.session.set('user', {
       id: userObj.id,

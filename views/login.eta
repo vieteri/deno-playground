@@ -32,7 +32,15 @@
 	</div>
 </div>
 
-
+<div class="container">	
+<% if (it.errors && it.errors.length > 0) { %>
+  <ul>
+    <% it.errors.forEach((error) => { %>
+      <li><%= error %></li>
+    <% }); %>
+  </ul>
+  <% } %>
+</div>
 
     
     <%~ includeFile('./partials/footer.ejs') %>

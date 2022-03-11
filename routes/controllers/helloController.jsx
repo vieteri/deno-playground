@@ -10,7 +10,6 @@ const hello = async(context) => {
   }
 
   data.user = email;
-  console.log(data);
   context.render('index.eta', data);
 };
  
