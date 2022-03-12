@@ -1,6 +1,6 @@
 import { Router } from "../deps.jsx";
-import { hello, cat } from "./controllers/helloController.jsx";
-import { authenticate, register, showLoginForm, showRegisterForm, logout } from "../auth/userService.jsx";
+import { hello, cat } from "./controllers/helloController.tsx";
+import { authenticate, register, showLoginForm, showRegisterForm, logout } from "../auth/userService.tsx";
 const router = new Router();
 
 router.get('/', hello);

@@ -5,7 +5,7 @@ import { assertEquals } from "https://deno.land/std@0.120.0/testing/asserts.ts";
 
 const res =  await executeQuery(`SELECT * FROM users where email::varchar = $1::varchar`, ["viet_trar@windowslive.com"]);
   const userObj = res.rows[0];
-  console.log(res.rows.length)
+  console.log(res.rows)
   /*
   if (res.rowCount === 0) {
       console.log('email not found from database');

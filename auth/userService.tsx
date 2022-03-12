@@ -1,15 +1,48 @@
 import { executeQuery, executeObject } from "../database/database.jsx";
 import {bcrypt, isEmail} from "../deps.jsx";
 
-const showRegisterForm = async(context) => {
-    const errors = [];
-    context.render('register.eta', {user: 'not authenticated', errors: errors});
+interface data_t {
+  user: string;
+  errors : string[];
+  name : string;
+  email : string;
+}
+const getData = async (context:any) => {
+  let user_data: string = await context.state.session.get('user');
+  let errors:string[] = [];
+  let data: data_t  = { user: user_data, errors: [], name : '', email: '' };
+
+  if (context.request) {
+    const body:any = context.request.body();
+    const params:any = await body.value;
+   // data.name = params.get("name"); 
+   // data.email = params.get("email");
+  }
+  
+  return data;
+};
+
+const showLoginForm = async(context:any) => {
+  let errors:string[] = [];
+  let authenticated = await context.state.session.get('authenticated');
+  if (authenticated) {
+    context.response.redirect('/behavior');
+  } else {
+    context.render('login.eta', await getData(context));
+  }
+  
+}
+
+const showRegisterForm = async(context:any) => {
+    const errors:string[] = [];
+    //const data: data_t = { user: 'not authenticated', errors:errors };
+    context.render('register.eta', await getData(context));
   };
   
-const register = async({request, response, render, session}) => {
-  const body = request.body();
+const register = async(context:any) => {
+  const body = context.request.body();
   const params = await body.value;
-  const errors = [];
+  const errors:string[] = [];
   const email = params.get('email');
   const password = params.get('password');
   const verification = params.get('verification');
@@ -33,29 +66,19 @@ const register = async({request, response, render, session}) => {
   }
 
   if (errors.length>0) {
-    render('register.ejs', {user: 'not authenticated', errors: errors});
+    context.render('register.eta', {user: 'not authenticated', errors: errors});
   } else {
 
     // otherwise, store the details in the database
     const hash = await bcrypt.hash(password);
     // when storing a password, store the hash    
     await executeQuery(`INSERT INTO users (email, password) VALUES ($1::varchar, $2::varchar)`, [email, hash]);
-    response.redirect('/auth/login');
+    context.response.redirect('/auth/login');
   }
 };
   
-const showLoginForm = async(context) => {
-  let errors = [];
-  let authenticated = await context.state.session.get('authenticated');
-  if (authenticated) {
-    context.response.redirect('/behavior');
-  } else {
-    context.render('login.eta', {user: 'not authenticated', errors: errors});
-  }
   
-}
-  
-const authenticate = async(context) => {
+const authenticate = async(context:any) => {
   const body = context.request.body();
   const params = await body.value;
   const errors = []
@@ -75,7 +98,7 @@ const authenticate = async(context) => {
     }      
   }
   if (errors.length>0) {
-    context.render('login.eta', {user: "not authenticated", errors: errors});
+    context.render('login.eta', await getData(context));
   } else {
   await context.state.session.set('authenticated', true);
   await context.state.session.set('user', {
@@ -85,7 +108,7 @@ const authenticate = async(context) => {
   context.response.redirect('/');
 }
 }
-const logout = async(context) => {
+const logout = async(context:any) => {
   await context.state.session.set('authenticated', false);
   await context.state.session.set('user', {
       id: null,
