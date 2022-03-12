@@ -1,7 +1,7 @@
 import { executeQuery } from "../../database/database.jsx";
 
 
-const getsummary =async (start, end, context) => {
+const getsummary =async (start, end, shit) => {
     if (shit) {
         const data = {
             sleep: '',
