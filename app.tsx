@@ -1,7 +1,7 @@
 import { Application } from "./deps.jsx";
 import { viewEngine, engineFactory, adapterFactory, Session } from "./deps.jsx";
 import {log, authmiddleware, errorMiddleware, serveStaticFilesMiddleware, registeredmiddleware, renderMiddleware} from './middlewares/middlewares.jsx';
-import { router } from "./routes/routes.jsx";
+import { router } from "./routes/routes.tsx";
 
 const app = new Application();
 /*

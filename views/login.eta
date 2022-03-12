@@ -43,4 +43,4 @@
 </div>
 
     
-    <%~ includeFile('./partials/footer.eta') %>
+    <%~ includeFile('./partials/footer') %>

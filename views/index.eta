@@ -5,4 +5,4 @@
     <p class="mb-0">I salute you for finding my website!</p>
 </blockquote>
 
-<%~ includeFile('./partials/footer.eta') %>
+<%~ includeFile('./partials/footer') %>

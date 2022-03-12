@@ -1,32 +1,27 @@
 interface data_t {
-  user: string
+  user: string;
+  errors : string[];
+  name : string;
+  email : string;
 }
+const getData = async (context:any) => {
+  let user_data:any = (await context.state.session.get('user'));
+  let errors:string[] = [];
+  let data: data_t  = { user: user_data, errors: [], name : '', email: '' };
+  if (!user_data) {
+    data.user = 'not authenticated';
+  } else {
+    data.user = user_data.email;
+  }
 
+  return data;
+};
 
 const hello = async(context:any) => {
-
-  let authenticated = await context.state.session.get('user')
-  let email = '';
-  if (!authenticated) {
-    email = "not authenticated";
-  }
-  else {
-    email = authenticated.email;
-  }
-  const data: data_t = { user: email };
-  context.render('index.eta', data);
+  context.render('index.eta', await getData(context));
 };
  
 const cat = async(context:any) => {
-  let authenticated = await context.state.session.get('user')
-  let email = '';
-  if (!authenticated) {
-    email = "not authenticated";
-  } else {
-    email = authenticated.email;
-  }
-
-  const data: data_t = { user: email };
-  context.render('cat.ejs', data);
+  context.render('cat.ejs', await getData(context));
 };
 export { hello, cat };

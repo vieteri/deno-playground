@@ -1,0 +1,16 @@
+<%~ includeFile('./partials/header', {user: it.user }) %>
+
+<h1>Emails:</h1>
+<div class="list-group">
+
+  <% if (it.email && it.email.length > 0) { %>
+          <% it.email.forEach((mail) => { %>
+              <button type="button" class="list-group-item list-group-item-action">
+              <%= mail %>
+              </button>
+          <% }); %>
+        <% } %>
+</div>
+
+
+<%~ includeFile('./partials/footer') %>

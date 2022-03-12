@@ -8,10 +8,14 @@ interface data_t {
   email : string;
 }
 const getData = async (context:any) => {
-  let user_data: string = await context.state.session.get('user');
+  let user_data: any = await context.state.session.get('user');
   let errors:string[] = [];
   let data: data_t  = { user: user_data, errors: [], name : '', email: '' };
-
+  if (!user_data) {
+    data.user = 'not authenticated';
+  } else {
+    data.user = user_data.email;
+  }
   if (context.request) {
     const body:any = context.request.body();
     const params:any = await body.value;
